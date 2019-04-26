@@ -3,18 +3,11 @@ package pageobjects.google;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class GoogleMainPage {
 	
 
-private WebDriver driver;
 private String url = "http://google.com";
 
 @FindBy(name = "q")
@@ -28,15 +21,8 @@ private WebElement loginButton;
 @FindBy(className = "gb_d")
 private WebElement gmailButton;
 
-public GoogleMainPage() {
-	WebDriverManager.chromedriver().setup();
-	driver = new ChromeDriver();
-	PageFactory.initElements(driver, this);
-	driver.get(url);
-}
-
-public WebDriver getDriver() {
-	return driver;
+public String getUrl() {
+	return url;
 }
 
 public WebElement getSearchField() {

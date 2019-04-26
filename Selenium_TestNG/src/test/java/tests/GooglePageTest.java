@@ -2,6 +2,9 @@ package tests;
 
 import static org.testng.Assert.assertTrue;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -15,11 +18,13 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import pageobjects.google.GoogleMainPage;
 
 public class GooglePageTest {
 	
 	GoogleMainPage googlePage;
+	WebDriver driver;
 	ExtentReports extent;
 	
 	@BeforeSuite
@@ -33,7 +38,11 @@ public class GooglePageTest {
 	@BeforeMethod
 	public void setUpMathod() throws InterruptedException {
 		googlePage = new GoogleMainPage();
-		new WebDriverWait(googlePage.getDriver(), 10).until(ExpectedConditions.visibilityOfAllElements(googlePage.getAllElements()));
+		WebDriverManager.chromedriver().setup();
+		driver = new ChromeDriver();
+		PageFactory.initElements(driver, googlePage);
+		driver.get(googlePage.getUrl());
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(googlePage.getAllElements()));
 	}
 	
 	@Test
@@ -65,8 +74,8 @@ public class GooglePageTest {
 	
 	@AfterMethod
 	public void tearDownMethod() {
-		googlePage.getDriver().close();
-		googlePage.getDriver().quit();
+		driver.close();
+		driver.quit();
 	}
 
 	@AfterSuite
