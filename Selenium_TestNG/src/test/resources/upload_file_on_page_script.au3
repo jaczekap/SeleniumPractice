@@ -1,11 +1,10 @@
-;$filePath = "C:\Users\User\Desktop\testSheet.xlsx"
+
+Call("setPath", $CmdLine[1])
+Sleep(500)
+
 Func setPath($path)
 	Sleep(500)
 	ControlFocus("Otwieranie", "", "Edit1")
-	Sleep(500)
 	ControlSetText("Otwieranie", "", "Edit1", $path)
-	Sleep(500)
 	ControlClick("Otwieranie", "", "Button1")
 EndFunc
-
-Call("setPath", $CmdLine[1])
